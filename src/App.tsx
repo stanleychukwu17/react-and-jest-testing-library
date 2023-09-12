@@ -1,35 +1,68 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import './app.scss';
+import background from './assets/images/background.jpg'
 
-function App() {
-  const [count, setCount] = useState(0)
+//--START-- all codes btw the START and END comments are all types for typescript
+type allTodoProps = {
+    name: string,
+    completed: boolean
+}
+//--END--
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+// adds a new item to the list of exiting items of the todo list
+// let addNewItemToTheList: (newItem: string, allList: allTodoProps[]) => allTodoProps[];
+
+const addNewItemToTheList = (item: string, currentList: allTodoProps[]) => {
+    return [...currentList, {name:item, completed: false}]
 }
 
-export default App
+const App = () => {
+    const [newTodo, setNewTodo] = useState<string>('')
+    const [allItems, setAllItems] = useState<allTodoProps[]>([])
+
+    // the function below updates the list of todo's
+    const updateTheList = () => {
+        const jimmy = addNewItemToTheList(newTodo, allItems)
+        setAllItems(jimmy)
+        setNewTodo('')
+    }
+
+    return (
+        <main className="AppMain">
+            <div className="todo_background">
+                <img src={background} alt="" />
+            </div>
+
+            <div className="todo">
+                <div className="todo__header">TODO</div>
+
+                <div className="todo__input">
+                    <input
+                        value={newTodo}
+                        onChange={(event) => setNewTodo(event.target.value)}
+                        onKeyUp={(event) => {
+                            if (event.keyCode === 13) { updateTheList() }
+                        }}
+                        type="text" placeholder='Add your todo here..'
+                    />
+                    <button>Add to list</button>
+                </div>
+
+                <div className="todo__final">
+                    <div className="t_each_todo">
+                        {allItems.map((ech: allTodoProps) => {
+                            return <div key={ech.name}><span>{ech.name}</span></div>
+                        })}
+                    </div>
+                    <div className="t_highlights">
+                        <div className="t_tasks">{allItems.length} task</div>
+                        <div className="t_followers">Followers</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    )
+}
+
+export default App;

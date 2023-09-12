@@ -1,0 +1,111 @@
+@forward './styles/globals/';
+@use './styles/util/' as u1;
+
+
+.AppMain {
+    @include u1.block_display()
+}
+.todo_background {
+    @include u1.block_display();
+    width: 100%;
+    height: u1.rem(435);
+    background: #000;
+
+    img {
+        position: relative;
+        max-width: 100%;
+        // top: u1.rem(-500);
+        top: u1.rem(-100);
+    }
+}
+.todo {
+    @include u1.block_display();
+    width: 80%;
+    padding: 0 5% 100px;
+    margin-inline: auto;
+    top: u1.rem(-200);
+
+    &__header {
+        @include u1.block_display();
+        width: u1.rem(300);
+        font-size: u1.rem(60);
+        padding: 20px 30px;
+        letter-spacing: 3px;
+        font-weight: 600;
+        background: linear-gradient(#000, transparent);
+        color: #fff;
+    }
+
+    &__input {
+        @include u1.block_display();
+        padding: 10px 0;
+
+        input {
+            width: 95%;
+            height: 56px;
+            padding: 5px 2%;
+            font-size: u1.rem(17);
+            border: 1px solid #fff;
+            border-radius: 2px;
+            outline: none;
+            background-color: #f2f2f2;
+        }
+
+        button {
+            position: absolute;
+            z-index: 1;
+            cursor: pointer;
+            top: 19px;
+            right: 7%;
+            bottom: auto;
+            left: auto;
+            padding: 10px 15px;
+            font-size: u1.rem(13);
+            font-weight: bold;
+            background-color: #f1f2f6;
+            border: 0 solid #fefefe;
+            border-radius: 15px;
+            box-shadow: 6px 6px 12px #c5c5c5,
+            -6px -6px 12px #ffffff;
+        }
+    }
+
+    &__final {
+        @include u1.block_display();
+        background-color: #fff;
+        width: 95%;
+        height: 400px;
+        border-radius: 15px;
+        border: 1px solid #f1f2f6;
+        box-shadow: 0 0 3px #f1f2f6f1,
+            0 0 5px #ebebeb;
+
+        .t_each_todo {
+            @include u1.block_display();
+            width: 100%;
+            height: 91%;
+            padding: 10px 3%;
+            overflow: auto;
+
+            & > div {
+                padding: 12px 0;
+                font-size: 14px;
+                border-bottom: 1px solid #f1f2f6;
+
+                & > span {
+                    cursor: pointer;
+                }
+            }
+        }
+        .t_highlights {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 9%;
+            padding-inline: 3%;
+            font-size: u1.rem(13);
+            font-weight: bold;
+            color: #7f87a4;
+        }
+    }
+}
